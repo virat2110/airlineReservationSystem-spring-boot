@@ -1,6 +1,5 @@
 package com.virat.demo.controller;
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -54,9 +53,15 @@ public class MyController {
 		u.setPassword(pass);
 		u.setGender(gender);
 		
-		String ack = us.addUser(u);
-		model.put("error" , ack);
-		return "register";
+		if(pass==repass) {
+			String ack = us.addUser(u);
+			model.put("error" , ack);
+			return "register";
+		}
+		else {
+			model.put("error" , "password mismatch");
+			return "register";
+		}
 	}
 	
 

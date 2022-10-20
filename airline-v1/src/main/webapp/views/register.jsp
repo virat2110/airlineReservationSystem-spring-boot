@@ -24,7 +24,7 @@
          
         <div class="box">
         <h3>Sign up</h3>
-        <h4>${error}</h4>
+         <h5 style="text-align: center; color:red;">${error}</h5>
         <input type="text" name="t1"  class="email" placeholder ="username" required/>
         <input type="text" name="t2"  class="email" placeholder ="name" required/>
         <input type="text" name="t3"  class="email"  placeholder ="email" required/>
@@ -36,7 +36,7 @@
          <input type="password" name="t9"  class="email"  placeholder ="re-type password" required/>
          <input type="number" name="t10"  class="email"  placeholder ="encryption-key(donot forget)" required/>
        <input type = "submit" value="sign up" id="btn2"/>
-        
+       
         </div>
           
         </form>
