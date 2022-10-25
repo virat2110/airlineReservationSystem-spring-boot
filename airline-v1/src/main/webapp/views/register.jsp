@@ -24,16 +24,27 @@
          
         <div class="box">
         <h3>Sign up</h3>
-         <h5 style="text-align: center; color:red;">${error}</h5>
+         <h5 style="text-align: center; color:red;margin-top:10px;margin-bottom:10px;">${error}</h5>
         <input type="text" name="t1"  class="email" placeholder ="username" required/>
         <input type="text" name="t2"  class="email" placeholder ="name" required/>
         <input type="text" name="t3"  class="email"  placeholder ="email" required/>
-        <input type="text" name="t4"  class="email"  placeholder ="gender" required/>
+        
+        <div class="option">
+        	<label for="t4">gender:</label>
+        	<select name="t4" id="gender">
+        	<option value="Male">Male</option>
+	  		<option value="Female">Female</option>
+	  		<option value="Others">Others</option>
+			</select>
+        </div>
+        
         <input type="number" name="t5"  class="email"  placeholder ="age" required/>
-        <input type="number" name="t6"  class="email"  placeholder ="mobile No." required/>
+        <input type="number" name="t6"  class="email" pattern="[6-9]{1}[0-9]{9}"  placeholder ="mobile No." required/>
          <input type="text" name="t7"  class="email"  placeholder ="address" required/>
-         <input type="password" name="t8"  class="email"  placeholder ="password" required/>
-         <input type="password" name="t9"  class="email"  placeholder ="re-type password" required/>
+         <input type="password" name="t8"  class="email"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder ="password" required/>
+         <h6 style="color:red; margin-top:0px; margin-bottom:0px; text-align:left; margin-left:41px;">
+         length- 8 or more, contains atleast- one uppercase,lowercase,char,alphanumeric</h6>
+         <input type="password" name="t9"  class="email" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  placeholder ="re-type password" required/>
          <input type="number" name="t10"  class="email"  placeholder ="encryption-key(donot forget)" required/>
        <input type = "submit" value="sign up" id="btn2"/>
        
@@ -59,6 +70,26 @@ body{
   margin: 0px 0px 20px 0px;
   
 }
+.option {
+display: flex;
+justify-content: left;
+background:#ecf0f1;
+border: #ccc 1px solid;
+border-bottom: #ccc 2px solid;
+padding: 8px;
+width:250px;
+color: #AABBCC;
+margin-top:8px;
+font-size:1em;
+border-radius:4px;
+margin-left: 40px;
+}
+
+.option label {
+padding-right: 20px;
+}
+
+
 .cont{
 display: flex;
 margin-left:250px;

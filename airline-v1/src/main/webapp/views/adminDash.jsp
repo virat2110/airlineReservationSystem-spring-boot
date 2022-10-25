@@ -13,21 +13,12 @@
    
 </head>
 <body>
-  <%@include file="nava.jsp" %>
+  <%@include file="navadmin.jsp" %>
 		
 		<div class="cont">
 
-    <form  action="LoginData" method="post">
         <div class="box">
-        <h1>Login</h1>
-         <h5 style="text-align: center; color:red;margin-top:10px;margin-bottom:10px;">${error}</h5>
         
-        <input type="text" name="t1"  class="email" placeholder="username" required/>
-          
-        <input type="password" name="t2"  class="email"  placeholder="password" required/>
-        <input type="number" name="t3"  class="email"  placeholder="Decryption-key" required/>
-        
-        <input type = "submit" value="sign in" class="btn"/>
           
           
         </div>
@@ -37,7 +28,7 @@
                 <img src="/views/2.png" alt="no image" height = "300"/>
             </div>
             </div>
-            </div>
+            
 </body>
 
 <style>
