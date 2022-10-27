@@ -10,9 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AVA ARS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka&family=Lato&display=swap" rel="stylesheet">
-</head>
+    <script type="text/javascript">
+    window.history.forward();
+    function noBack() {
+        window.history.forward();
+    }
+</script>
+</head >
  <%
 if(UserAdmin.admin !=1) {
 	
@@ -20,7 +25,7 @@ if(UserAdmin.admin !=1) {
 }
 %>
 
-<body>
+<body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
             <div class="navbar">
              <div class="header">
             
@@ -28,10 +33,11 @@ if(UserAdmin.admin !=1) {
             <a href="#">AVA-ARS ADMIN PAGE</a>
            </div>
                 <ul>
-                     <li><a href="#">Add Flight</a></li>
+                     <li><a href="addFlight">Add Flight</a></li>
                       <li><a href="#" >Flight Data</a></li>
-                    <li><a href="login" >Logout</a></li>
-                    <li><a href="register"></a></li>
+                      <li><a href="#" >Add Coupon</a></li>
+                    <li><a href="logout" >Logout</a></li>
+                   
                     
                     
                 </ul>

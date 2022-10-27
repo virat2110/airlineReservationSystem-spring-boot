@@ -11,13 +11,10 @@ import javax.persistence.Table;
 @Table(name="coupon")
 public class Coupon {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
 	@Column(name="name")
 	private String name;
 	@Column(name="percentage")
 	private int percentage;
-	
-
+	@Column(name="active")
+	private int active;
 }

@@ -6,41 +6,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVA-ARS|Login</title>
+    <title>AVA-ARS | Admin</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka&family=Lato&display=swap" rel="stylesheet">
-    
-    <script type="text/javascript">
-    window.history.forward();
-    function noBack() {
-        window.history.forward();
-    }
-</script>
-   
 </head>
-<body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
-  <%@include file="nava.jsp" %>
-		
-		<div class="cont">
+<body>
 
-    <form  action="LoginData" method="post">
+
+
+	<%@include file="navadmin.jsp" %>
+	
+	<div class="cont">
+    <form action="AddFlight" method="post">
         <div class="box">
-        <h1>Login</h1>
-         <h5 style="text-align: center; color:red;margin-top:10px;margin-bottom:10px;">${error}</h5>
+        <h3>Flight Details</h3>
+         <h5 style="text-align: center; color:red;margin-top:10px;margin-bottom:10px;">${msg}</h5>
+        <input type="number" name="t1"  class="email" placeholder ="Flight no." required/>
+        <input type="text" name="t2"  class="email" placeholder ="Source" required/>
+         <input type="text" name="t3"  class="email" placeholder ="Destination" required/>
+         <input type="text" name="t4"  class="email" placeholder ="Departure" required/>
+         <input type="text" name="t5"  class="email" placeholder ="Arrival" required/>
+         <input type="number" name="t6"  class="email" placeholder ="Price" required/>
+         <input type = "submit" value="Add Flight" id="btn2"/>
         
-        <input type="text" name="t1"  class="email" placeholder="username" required/>
-          
-        <input type="password" name="t2"  class="email"  placeholder="password" required/>
-        <input type="number" name="t3"  class="email"  placeholder="Decryption-key" required/>
         
-        <input type = "submit" value="sign in" class="btn"/>
-          
-          
+       
         </div>
           
         </form>
-         <div class="image">
+        
+        
+        <div class="image">
                 <img src="/views/2.png" alt="no image" height = "300"/>
             </div>
             </div>
@@ -54,8 +51,29 @@ body{
   margin: 0 auto 0 auto;  
   width:100%; 
   text-align:center;
-  margin: 0px 0px 20px 0px; 
+  margin: 0px 0px 20px 0px;
+  
 }
+.option {
+display: flex;
+justify-content: left;
+background:#ecf0f1;
+border: #ccc 1px solid;
+border-bottom: #ccc 2px solid;
+padding: 8px;
+width:250px;
+color: #AABBCC;
+margin-top:8px;
+font-size:1em;
+border-radius:4px;
+margin-left: 40px;
+}
+
+.option label {
+padding-right: 20px;
+}
+
+
 .cont{
 display: flex;
 margin-left:250px;
@@ -78,11 +96,11 @@ h1{
 }
 .box{
   background:white;
-  width:300px;
+  width:350px;
   border-radius:6px;
   margin-top: 100px;
   margin-left: 50px;
-  padding:20px 0px 100px 0px;
+  padding:10px 0px 70px 0px;
   border: #3A5743 4px solid; 
 }
 .email{
@@ -92,7 +110,7 @@ h1{
   padding: 8px;
   width:250px;
   color:#AAAAAA;
-  margin-top:10px;
+  margin-top:8px;
   font-size:1em;
   border-radius:4px;
 }
@@ -121,8 +139,7 @@ h1{
   font-size:0.8em;
 }
 .btn:hover{
-background:green; 
-cursor:pointer;
+  background:#2CC06B; 
 }
 #btn2{
   float:left;
@@ -131,16 +148,15 @@ cursor:pointer;
   padding-bottom:5px;
   color:white;
   border-radius:4px;
-  border: #2980b9 1px solid;
-  
+  border: #2980b9 1px solid;  
   margin-top:20px;
   margin-bottom:20px;
-  margin-left:10px;
+  margin-left:100px;
   font-weight:800;
   font-size:0.8em;
 }
 #btn2:hover{ 
-background:green; 
+background:blue; 
 cursor:pointer;
 }
 </style>

@@ -1,4 +1,5 @@
 package com.virat.demo.controller;
+
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -6,7 +7,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.virat.demo.model.Admin;
+import com.virat.demo.model.Flight;
 import com.virat.demo.model.User;
+import com.virat.demo.service.FlightService;
 import com.virat.demo.service.UserService;
 import com.virat.demo.validation.UserAdmin;
 import com.virat.demo.validation.UserRegValidation;
@@ -32,6 +36,25 @@ public class MyController {
 	@RequestMapping("/admin")
 	public String admin() {
 		return "adminDash";
+	}
+	
+	@RequestMapping("/addFlight")
+	public String addFlight() {
+		if(UserAdmin.isAdmin == 1 && UserAdmin.admin ==1) {
+		return "addFlight";
+		}
+		else {
+			return "errorAdmin";
+		}
+	}
+	
+	
+	@RequestMapping("/logout")
+	public String logout() {
+		UserAdmin.admin =-1;
+		UserAdmin.isAdmin = -1;
+		UserAdmin.user =-1;
+		return "logout";
 	}
 	
 	@Autowired
@@ -69,7 +92,7 @@ public class MyController {
 			model.put("error" , "password mismatch");
 			return "register";
 		}
-	}
+	}//register
 	
 	@RequestMapping(path="LoginData",method = RequestMethod.POST)
     public String loginUser(ModelMap model,  HttpServletRequest request) {
@@ -82,8 +105,49 @@ public class MyController {
 		String ack = us.verifyLogin(username, password, key);
 		model.put("error", ack);
 		
-		return "login";
-	}
+		if(UserAdmin.admin==1) {
+			return "redirect:/admin";
+		}
+		else if(UserAdmin.user==1) {
+			return "redirect:/";
+		}
+		else {
+			return "LoginData";
+		}
+	}//login
+	
+	@Autowired
+	public FlightService fs;
+	
+	@RequestMapping(path="AddFlight",method = RequestMethod.POST)
+    public String addFlight(ModelMap model,  HttpServletRequest request)  {
+		if(UserAdmin.isAdmin == 1 && UserAdmin.admin ==1) {
+			int id = Integer.parseInt(request.getParameter("t1"));
+			String source = request.getParameter("t2");
+			String dest = request.getParameter("t3");
+			String departure = request.getParameter("t4");
+			String arrival = request.getParameter("t5");
+			int price = Integer.parseInt(request.getParameter("t6"));
+			
+			Flight f = new Flight();
+			f.setArrival(arrival);
+			f.setDeparture(departure);
+			f.setFlightId(id);
+			f.setDest(dest);
+			f.setSource(source);
+			f.setPrice(price);
+			f.setDelay("0");
+			f.setStatus("running");
+			
+			String ack = fs.addFlight(f);
+			model.put("msg", ack);
+			return "addFlight";
+			
+		}
+		else {
+			return"redirect:/login";
+		}
+	}//addFlight
 	
 
 }

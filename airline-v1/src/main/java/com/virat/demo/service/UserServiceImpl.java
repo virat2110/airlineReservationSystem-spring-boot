@@ -1,8 +1,9 @@
 package com.virat.demo.service;
 import java.util.List;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.virat.demo.model.Admin;
 import com.virat.demo.model.User;
 import com.virat.demo.repository.AdminRepository;
@@ -47,6 +48,7 @@ public class UserServiceImpl implements UserService{
 				Admin a = ar.getById(username);
 				if(a.getPassword().equals(password)) {
 					UserAdmin.admin =1;
+					UserAdmin.isAdmin = a.getIsAdmin();
 					ack +="Hello admin";
 				}
 				else {

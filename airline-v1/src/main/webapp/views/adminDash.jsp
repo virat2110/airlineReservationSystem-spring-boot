@@ -18,12 +18,25 @@
 		<div class="cont">
 
         <div class="box">
+        <div class="column">
+        <h3>Total Flight:100	</h3>
+        <h3>Flight cancelled:100	</h3>
+        <h3>source covering:100	</h3>
+        <h3>Dest. covering: 100	</h3>
+        
+        </div>
+        
+        <div class="column">
+        <h3>Total user:100		</h3>
+        <h3>Ticket cancelled:100	</h3>
+         <h3>Ticket booked:100		</h3>
+      <h3>Running late:100	</h3>
+        </div>
+       
         
           
           
         </div>
-          
-        </form>
          <div class="image">
                 <img src="/views/2.png" alt="no image" height = "300"/>
             </div>
@@ -39,11 +52,34 @@ body{
   margin: 0 auto 0 auto;  
   width:100%; 
   text-align:center;
-  margin: 20px 0px 20px 0px; 
+  margin: 0px 0px 20px 0px; 
 }
 .cont{
 display: flex;
-margin-left:250px;
+margin-left:100px;
+}
+.cont::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#6f0681,#ce17dc);
+    clip-path: circle(20% at right 92%);
+    z-index: -99999;
+}
+
+.cont::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#6f0681,#ce17dc);
+    clip-path: circle(15% at 5% 5%);
+    z-index: -99999;
 }
 .image {
     margin-top: 150px;
@@ -63,12 +99,18 @@ h1{
 }
 .box{
   background:white;
-  width:300px;
+  width:500px;
   border-radius:6px;
-  margin-top: 100px;
-  margin-left: 50px;
-  padding:20px 0px 100px 0px;
+  margin-top: 170px;
+  margin-left: 10px;
+  padding:20px 10px 10px 10px;
   border: #3A5743 4px solid; 
+  display : flex;
+  float : left;
+}
+.column {
+  flex: 50%;
+  text-align: left;
 }
 .email{
   background:#ecf0f1;
