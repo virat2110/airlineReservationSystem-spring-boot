@@ -1,22 +1,34 @@
 package com.virat.demo.controller;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.virat.demo.model.Admin;
 import com.virat.demo.model.Flight;
 import com.virat.demo.model.User;
 import com.virat.demo.service.FlightService;
+import com.virat.demo.service.SourceDestService;
 import com.virat.demo.service.UserService;
 import com.virat.demo.validation.UserAdmin;
 import com.virat.demo.validation.UserRegValidation;
 
 @Controller
 public class MyController {
+	
+	@Autowired
+	public SourceDestService sds;
+	@Autowired
+	public UserService us;
+	@Autowired
+	public FlightService fs;
 	
 	@RequestMapping("/")
 	public String index() {
@@ -35,7 +47,12 @@ public class MyController {
 	
 	@RequestMapping("/admin")
 	public String admin() {
-		return "adminDash";
+		if(UserAdmin.isAdmin == 1 && UserAdmin.admin ==1) {
+			return "adminDash";
+	}
+		else {
+			return "login";
+		}
 	}
 	
 	@RequestMapping("/addFlight")
@@ -49,6 +66,21 @@ public class MyController {
 	}
 	
 	
+	@RequestMapping("/searchflight")
+	public String searchFlight(HttpServletRequest request) {
+		if(UserAdmin.user==1) {
+			List<String> ls = sds.getSource();
+			List<String> ld = sds.getDest();
+			request.setAttribute("ls", ls);
+			request.setAttribute("ld", ld);
+			return "searchFlightLogged";
+		}
+		else {
+			return "login";
+		}
+	}
+	
+	
 	@RequestMapping("/logout")
 	public String logout() {
 		UserAdmin.admin =-1;
@@ -57,8 +89,17 @@ public class MyController {
 		return "logout";
 	}
 	
-	@Autowired
-	public UserService us;
+	@RequestMapping("/flightListUser")
+	public String flightList(HttpServletRequest request) {
+		if(UserAdmin.user==1) {
+			return "flightListUser";
+		}
+		else {
+			return "login";
+		}
+	}
+	
+	
 	
 	@RequestMapping(path="RegisterData",method = RequestMethod.POST)
     public String userReg(ModelMap model,  HttpServletRequest request) {
@@ -104,30 +145,33 @@ public class MyController {
 		
 		String ack = us.verifyLogin(username, password, key);
 		model.put("error", ack);
-		
+		HttpSession session = request.getSession();
 		if(UserAdmin.admin==1) {
+			
+			session.setAttribute("aUser", username);
 			return "redirect:/admin";
 		}
 		else if(UserAdmin.user==1) {
-			return "redirect:/";
+			session.setAttribute("uUser", username);
+			return "redirect:/searchflight";
 		}
 		else {
-			return "LoginData";
+			return "login";
 		}
 	}//login
 	
-	@Autowired
-	public FlightService fs;
+	
 	
 	@RequestMapping(path="AddFlight",method = RequestMethod.POST)
     public String addFlight(ModelMap model,  HttpServletRequest request)  {
 		if(UserAdmin.isAdmin == 1 && UserAdmin.admin ==1) {
 			int id = Integer.parseInt(request.getParameter("t1"));
-			String source = request.getParameter("t2");
-			String dest = request.getParameter("t3");
-			String departure = request.getParameter("t4");
-			String arrival = request.getParameter("t5");
-			int price = Integer.parseInt(request.getParameter("t6"));
+			String name = request.getParameter("t2");
+			String source = request.getParameter("t3");
+			String dest = request.getParameter("t4");
+			String departure = request.getParameter("t5");
+			String arrival = request.getParameter("t6");
+			int price = Integer.parseInt(request.getParameter("t7"));
 			
 			Flight f = new Flight();
 			f.setArrival(arrival);
@@ -136,6 +180,7 @@ public class MyController {
 			f.setDest(dest);
 			f.setSource(source);
 			f.setPrice(price);
+			f.setName(name);
 			f.setDelay("0");
 			f.setStatus("running");
 			
@@ -148,6 +193,40 @@ public class MyController {
 			return"redirect:/login";
 		}
 	}//addFlight
+	
+	@RequestMapping(path="searchFlight",method = RequestMethod.POST)
+    public String searchFlight(ModelMap model,  HttpServletRequest request)  {
+		if(UserAdmin.user ==1) {
+			String source = request.getParameter("t1");
+			String dest = request.getParameter("t2");
+			List<Flight> list = fs.flightList(source, dest);
+			HttpSession session = request.getSession();
+			if(list.size() ==0) {
+				
+				session.setAttribute("msga", "No flight Found");
+				return "redirect:/searchflight";
+			}
+			else {
+				session.setAttribute("source", source);
+				session.setAttribute("dest", dest);
+				request.setAttribute("flightList", list);
+				return "flightListUser";
+			}
+			
+		}
+		else {
+			return "login";
+		}
+	}//searchFlight
+	
+	@RequestMapping(path="flight/{id}",method = RequestMethod.GET)
+	public String pathparameterdemo1(@PathVariable int id) {
+		
+		System.out.println(id+"   ***************    ");
+		return "redirect:/searchflight";
+	}
+	
+	
 	
 
 }

@@ -38,6 +38,10 @@
 
 
 <style>
+.navbar{
+	background: rgb(21,110,124);
+background: linear-gradient(90deg, rgba(21,110,124,1) 13%, rgba(16,131,149,1) 51%, rgba(84,190,207,1) 89%);
+}
 .navbar ul{
     display: flex;
     margin-right: 70px;

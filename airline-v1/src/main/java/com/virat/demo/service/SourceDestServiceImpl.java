@@ -1,5 +1,7 @@
 package com.virat.demo.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +35,29 @@ public class SourceDestServiceImpl implements SourceDestService{
 		}
 		
 	}
+
+	@Override
+	public List<String> getSource() {
+		List<SourceDest> l = sdr.findAll();
+		HashSet<String> h = new HashSet<>();
+		for(SourceDest sd: l) {
+			h.add(sd.getSource());
+		}
+		List<String> list = new ArrayList<>(h);
+		return list;
+	}
+
+	@Override
+	public List<String> getDest() {
+		List<SourceDest> l = sdr.findAll();
+		HashSet<String> h = new HashSet<>();
+		for(SourceDest sd: l) {
+			h.add(sd.getDest());
+		}
+		List<String> list = new ArrayList<>(h);
+		return list;
+	}
+
+	
 
 }

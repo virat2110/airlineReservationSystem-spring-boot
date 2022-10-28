@@ -1,5 +1,8 @@
 package com.virat.demo.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +36,19 @@ public class FlightServiceImpl implements FlightService{
 		}
 		
 		return ack;
+	}
+
+	@Override
+	public List<Flight> flightList(String source, String dest) {
+		List<Flight> l = fr.findAll();
+		List<Flight> list = new ArrayList<Flight>();
+		for(Flight f : l) {
+			if(f.getSource().equals(source)  &&  f.getDest().equals(dest)) {
+				list.add(f);
+			}
+		}
+		
+		return list;
 	}
 
 }

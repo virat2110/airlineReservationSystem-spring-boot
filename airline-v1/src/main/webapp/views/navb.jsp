@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    
-    
-   
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,10 +11,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>We Heal</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka&family=Lato&display=swap" rel="stylesheet">
+    <title >AVA-ARS</title>
+
 </head>
 
 
@@ -27,22 +20,23 @@
             <div class="navbar">
              <div class="header">
             <div class="title">
-            <a href="index1.jsp">WE HEAL</a>
+            <a href="#">WE HEAL</a>
            </div>
                 <ul>
                     <li><a class="text1" href="https://github.com/virat2110" target="_blank" rel="noopener noreferrer">Git hub</a></li>
-                    <li><a class="text1" href="viewData.jsp">Calorie/food</a></li>
-                    <li><a class="text1" href="bmi.jsp">BMI</a></li>
+                    <li><a class="text1" href="#">Profile</a></li>
+                    <li><a class="text1" href="#">Profile</a></li>
                      <li>
                      
                      <div class="dropdown">
-                      <button class="dropbtn">Profile
+                      <button class="dropbtn">${ uUser }
                         <i class="fa fa-caret-down"></i>
                       </button>
                       <div class="dropdown-content">
                         <a href="profile.jsp">View profile</a>
                     <a href="insertUser.jsp">Update</a>
-                        <a href="updateUser.jsp">Update BMI</a>
+                        <a href="updateUser.jsp">History</a>
+                        <a href="logout">Logout</a>
                       </div>
                     </div>
                      
@@ -72,8 +66,13 @@
 
 
 <style>
+.navbar{
+	background: rgb(21,110,124);
+	background: linear-gradient(90deg, rgba(21,110,124,1) 13%, rgba(16,131,149,1) 51%, rgba(84,190,207,1) 89%);
+	height: 12vh;
+}
 .text1 {
-	font-weight: bolder;
+
     font-size: 22px;
     font-family: inherit;
 }
@@ -108,6 +107,8 @@ color: black;
 }
 .title {
     padding: 30px;
+     font-size: 22px;
+    font-family: inherit;
 }
 .dropdown {
 	float: left;
@@ -116,7 +117,7 @@ color: black;
 	margin-right: 15px;
 	margin-top: 3px;
 	display: block;
-	font-size: bolder;
+
 	
 	
   }
@@ -125,24 +126,20 @@ color: black;
 	font-size: 22px;
 	border: none;
 	outline: none;
-	/*padding: 14px 16px; */
 	background-color: inherit;
 	font-family: inherit;
 	margin: 0; 
-	font-weight: bolder;
     padding: 10px 0;
     color: rgba(255, 255, 255, 0.911);
     text-transform: capitalize;
     transition: all 0.5s ease;
-    font-weight: bolder;
     margin-top: -50px;
   }
   
   .navbar a:hover, .dropdown:hover .dropbtn {
 	color: #000000;
   }
-  
-  /* Dropdown content (hidden by default) */
+
   .dropdown-content {
 	display: none;
 	position: absolute;
@@ -151,8 +148,7 @@ color: black;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	z-index: 1;
   }
-  
-  /* Links inside the dropdown */
+
   .dropdown-content a {
 	float: none;
 	color: black;
@@ -160,16 +156,13 @@ color: black;
 	text-decoration: none;
 	display: block;
 	text-align: left;
-	font-weight: bolder;
 	font-size: large;
   }
-  
-  /* Add a grey background color to dropdown links on hover */
+
   .dropdown-content a:hover {
 	background-color: rgb(17, 169, 207);
   }
-  
-  /* Show the dropdown menu on hover */
+
   .dropdown:hover .dropdown-content {
 	display: block;
   }

@@ -25,6 +25,7 @@ if(UserAdmin.admin !=1) {
 }
 %>
 
+
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
             <div class="navbar">
              <div class="header">
@@ -36,7 +37,8 @@ if(UserAdmin.admin !=1) {
                      <li><a href="addFlight">Add Flight</a></li>
                       <li><a href="#" >Flight Data</a></li>
                       <li><a href="#" >Add Coupon</a></li>
-                    <li><a href="logout" >Logout</a></li>
+                     
+                    <li><a href="logout" >${ aUser}</a></li>
                    
                     
                     
@@ -49,6 +51,10 @@ if(UserAdmin.admin !=1) {
 
 
 <style>
+.navbar{
+	background: rgb(21,110,124);
+background: linear-gradient(90deg, rgba(21,110,124,1) 13%, rgba(16,131,149,1) 51%, rgba(84,190,207,1) 89%);
+}
 .navbar ul{
     display: flex;
     margin-right: 70px;

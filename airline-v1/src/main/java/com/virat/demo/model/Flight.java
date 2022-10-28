@@ -14,6 +14,9 @@ public class Flight {
 	private int flightId;
 	@Column(name="source")
 	private String source;
+	@Column(name="name")
+	private String name;
+	
 	@Column(name="dest")
 	private String dest;
 	@Column(name="price")
@@ -26,6 +29,12 @@ public class Flight {
 	private String delay;
 	@Column(name="status")
 	private String status;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public int getFlightId() {
 		return flightId;
 	}
