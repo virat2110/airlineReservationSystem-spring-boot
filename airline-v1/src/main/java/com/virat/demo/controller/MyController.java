@@ -1,19 +1,21 @@
 package com.virat.demo.controller;
 import java.util.List;
 
+
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.virat.demo.model.Booking;
 import com.virat.demo.model.Flight;
 import com.virat.demo.model.User;
+import com.virat.demo.service.BookingService;
 import com.virat.demo.service.FlightService;
 import com.virat.demo.service.SourceDestService;
 import com.virat.demo.service.UserService;
@@ -29,6 +31,9 @@ public class MyController {
 	public UserService us;
 	@Autowired
 	public FlightService fs;
+	
+	@Autowired
+	public BookingService bs;
 	
 	@RequestMapping("/")
 	public String index() {
@@ -47,7 +52,7 @@ public class MyController {
 	
 	@RequestMapping("/admin")
 	public String admin() {
-		if(UserAdmin.isAdmin == 1 && UserAdmin.admin ==1) {
+		if(UserAdmin.admin == 1) {
 			return "adminDash";
 	}
 		else {
@@ -144,7 +149,7 @@ public class MyController {
 		String password = urv.encrypt(pass, key);
 		
 		String ack = us.verifyLogin(username, password, key);
-		model.put("error", ack);
+		model.put("errorLogin", ack);
 		HttpSession session = request.getSession();
 		if(UserAdmin.admin==1) {
 			
@@ -220,12 +225,48 @@ public class MyController {
 	}//searchFlight
 	
 	@RequestMapping(path="flight/{id}",method = RequestMethod.GET)
-	public String pathparameterdemo1(@PathVariable int id) {
-		
-		System.out.println(id+"   ***************    ");
-		return "redirect:/searchflight";
-	}
+	public String flightTxn(HttpServletRequest request, @PathVariable int id) {
+		Flight f = fs.flightById(id);
+		HttpSession session= request.getSession();
+		if(f == null) {
+			return "redirect:/searchflight";
+		}
+		else {
+			String user = (String)session.getAttribute("uUser");
+			User u = us.userById(user);
+			if(user == null) {
+				return "redirect:/searchflight";
+			}
+			else {
+				session.setAttribute("fliightId", id);
+				session.setAttribute("userObj", u);
+				session.setAttribute("flightObj", f);
+				return "transaction";
+			}
+		}
+	}//flight & txn page
 	
+	
+	@RequestMapping("/bookTicket")
+	public String booking(HttpServletRequest request)  {
+		if(UserAdmin.user==1) {
+			HttpSession session = request.getSession();
+			
+			String user = (String)session.getAttribute("uUser");
+			Flight f = (Flight) session.getAttribute("flightObj");
+			
+			Booking b = new Booking();
+			b.setFlightid(f.getFlightId());
+			b.setPrice(f.getPrice());
+			b.setStatus("Booked");
+			b.setUsername(user);
+			String ack = bs.bookTicket(b);
+			return "redirect:/searchflight";
+		}
+		else {
+			return "/login";
+		}
+	}
 	
 	
 

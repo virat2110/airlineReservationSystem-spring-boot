@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService{
 				return "Mobile aready registered";
 			}
 			ur.save(u);
-			return "Inserted Successfully";
+			return "User registered";
 		}
 	}//addUser
 
@@ -76,5 +76,17 @@ public class UserServiceImpl implements UserService{
 		}
 		return ack;
 	}//loginVerify
+
+	@Override
+	public User userById(String username) {
+		if(ur.existsById(username)) {
+			User u = ur.getById(username);
+			return u;
+		}
+		else {
+			return null;
+		}
+		
+	}
 
 }

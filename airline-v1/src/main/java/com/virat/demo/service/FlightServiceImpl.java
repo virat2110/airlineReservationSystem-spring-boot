@@ -51,4 +51,15 @@ public class FlightServiceImpl implements FlightService{
 		return list;
 	}
 
+	@Override
+	public Flight flightById(int id) {
+		if(fr.existsById(id)) {
+			Flight f = fr.getById(id);
+			return f;
+		}
+		else {
+			return null;
+		}
+	}
+
 }

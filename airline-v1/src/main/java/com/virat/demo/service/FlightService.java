@@ -8,5 +8,6 @@ public interface FlightService {
 	
 	public String addFlight(Flight f);
 	public List<Flight> flightList(String source, String dest);
+	public Flight flightById(int id);
 
 }

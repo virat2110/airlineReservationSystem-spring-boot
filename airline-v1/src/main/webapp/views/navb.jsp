@@ -20,7 +20,7 @@
             <div class="navbar">
              <div class="header">
             <div class="title">
-            <a href="#">WE HEAL</a>
+            <a href="#">AVA ARS</a>
            </div>
                 <ul>
                     <li><a class="text1" href="https://github.com/virat2110" target="_blank" rel="noopener noreferrer">Git hub</a></li>
@@ -36,7 +36,7 @@
                         <a href="profile.jsp">View profile</a>
                     <a href="insertUser.jsp">Update</a>
                         <a href="updateUser.jsp">History</a>
-                        <a href="logout">Logout</a>
+                        <a href="/logout">Logout</a>
                       </div>
                     </div>
                      
