@@ -17,4 +17,25 @@ public class Coupon {
 	private int percentage;
 	@Column(name="active")
 	private int active;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getPercentage() {
+		return percentage;
+	}
+	public void setPercentage(int percentage) {
+		this.percentage = percentage;
+	}
+	public int getActive() {
+		return active;
+	}
+	public void setActive(int active) {
+		this.active = active;
+	}
+	
+	
 }

@@ -14,9 +14,16 @@ List<Flight> l = (List<Flight>) request.getAttribute("flightList");
 %>
 
 
+ <script type="text/javascript">
+    window.history.forward();
+    function noBack() {
+        window.history.forward();
+    }
+</script>
+
 
 </head>
-<body>
+<body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
  <%@include file="navb.jsp" %>
  
 

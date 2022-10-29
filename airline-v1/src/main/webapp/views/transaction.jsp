@@ -15,10 +15,15 @@
     Flight f = (Flight) session.getAttribute("flightObj");
     User u = (User) session.getAttribute("userObj");
     %>
-    
+     <script type="text/javascript">
+    window.history.forward();
+    function noBack() {
+        window.history.forward();
+    }
+</script>
    
 </head>
-<body>
+<body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
   <%@include file="navb.jsp" %>
 		
 		<div class="cont">
@@ -46,13 +51,13 @@
          <div class="image">
                 <div class="box1">
                 <div class="column1">
-                <h2>Confirmation page </h2>
+                <h2 style="color: blue;">Confirmation page </h2>
        <h3>Base Amount: </h3>
        <h3  style="color:red;">₹ <%=f.getPrice() %></h3>
        <br/>
        <br/>
-        <form action="ApplyCoupon" method="post">
-         <h5 style="text-align: center; color:green;margin-top:0px;margin-bottom:10px; font-size: 22px;">${disPrice }</h5>
+        <form action="/ApplyCoupon" method="get">
+         <h5 style="text-align: center; color:green;margin-top:0px;margin-bottom:10px; font-size: 20px;">${couponMsg }</h5>
         <input type="text" name="t1"  class="email" placeholder ="Have Coupon!!"/> <br/>
          <input type = "submit" value="Apply" id="btn2"/>
         
@@ -75,6 +80,9 @@
             </div>
             </div>
             </div>
+            <%
+            session.setAttribute("couponMsg", " ");
+            %>
             
 </body>
 

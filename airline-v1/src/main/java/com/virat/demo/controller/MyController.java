@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.virat.demo.model.Booking;
+import com.virat.demo.model.Coupon;
 import com.virat.demo.model.Flight;
 import com.virat.demo.model.User;
 import com.virat.demo.service.BookingService;
+import com.virat.demo.service.CouponService;
 import com.virat.demo.service.FlightService;
 import com.virat.demo.service.SourceDestService;
 import com.virat.demo.service.UserService;
@@ -34,6 +36,9 @@ public class MyController {
 	
 	@Autowired
 	public BookingService bs;
+	
+	@Autowired
+	public CouponService cs;
 	
 	@RequestMapping("/")
 	public String index() {
@@ -87,10 +92,12 @@ public class MyController {
 	
 	
 	@RequestMapping("/logout")
-	public String logout() {
+	public String logout(HttpServletRequest request) {
 		UserAdmin.admin =-1;
 		UserAdmin.isAdmin = -1;
 		UserAdmin.user =-1;
+		HttpSession session = request.getSession();
+		session.invalidate();
 		return "logout";
 	}
 	
@@ -226,23 +233,28 @@ public class MyController {
 	
 	@RequestMapping(path="flight/{id}",method = RequestMethod.GET)
 	public String flightTxn(HttpServletRequest request, @PathVariable int id) {
-		Flight f = fs.flightById(id);
-		HttpSession session= request.getSession();
-		if(f == null) {
-			return "redirect:/searchflight";
-		}
-		else {
-			String user = (String)session.getAttribute("uUser");
-			User u = us.userById(user);
-			if(user == null) {
+		if(UserAdmin.user ==1) {
+			Flight f = fs.flightById(id);
+			HttpSession session= request.getSession();
+			if(f == null) {
 				return "redirect:/searchflight";
 			}
 			else {
-				session.setAttribute("fliightId", id);
-				session.setAttribute("userObj", u);
-				session.setAttribute("flightObj", f);
-				return "transaction";
+				String user = (String)session.getAttribute("uUser");
+				User u = us.userById(user);
+				if(user == null) {
+					return "redirect:/searchflight";
+				}
+				else {
+					session.setAttribute("fliightId", id);
+					session.setAttribute("userObj", u);
+					session.setAttribute("flightObj", f);
+					return "transaction";
+				}
 			}
+		}
+		else {
+			return "login";
 		}
 	}//flight & txn page
 	
@@ -254,10 +266,10 @@ public class MyController {
 			
 			String user = (String)session.getAttribute("uUser");
 			Flight f = (Flight) session.getAttribute("flightObj");
-			
+			int price = (int) session.getAttribute("disPrice");
 			Booking b = new Booking();
 			b.setFlightid(f.getFlightId());
-			b.setPrice(f.getPrice());
+			b.setPrice(price);
 			b.setStatus("Booked");
 			b.setUsername(user);
 			String ack = bs.bookTicket(b);
@@ -266,8 +278,64 @@ public class MyController {
 		else {
 			return "/login";
 		}
+	}// Ticket booking confirmation
+	
+	@RequestMapping("/coupon")
+	public String coupon() {
+		if(UserAdmin.admin==1 && UserAdmin.isAdmin ==1) {
+			return "addCoupon";
+		}
+		else {
+			return "errorAdmin";
+		}
 	}
 	
+	@RequestMapping(path="AddCoupon", method=RequestMethod.POST)
+	public String addCoupon(HttpServletRequest request) {
+		String name = request.getParameter("t1");
+		int per = Integer.parseInt(request.getParameter("t2"));
+		int active = Integer.parseInt(request.getParameter("t3"));
+		Coupon c = new Coupon();
+		c.setName(name);
+		c.setPercentage(per);
+		c.setActive(active);
+		
+		String ack = cs.addCoupon(c);
+		HttpSession session = request.getSession();
+		session.setAttribute("couponMsg", ack);
+		return "addCoupon";
+	}//addingCoupon
+	
+	@RequestMapping(path="ApplyCoupon", method = RequestMethod.GET)
+	public String applyCoupon(HttpServletRequest request) {
+		if(UserAdmin.user ==1) {
+			String name = request.getParameter("t1");
+			System.out.println(name);
+			HttpSession session = request.getSession();
+			int per = cs.discount(name);
+			System.out.println(per);
+			String ack = "";
+			if(per ==0) {
+				ack+= "Not a valid coupon";
+			}
+			else if(per == -1) {
+				ack+="Coupon expired";
+			}
+			else {
+				Flight f = (Flight) session.getAttribute("flightObj");
+				int price = cs.disPrice(f.getPrice(), per, name.charAt(0));
+				System.out.println(price);
+				session.setAttribute("disPrice", price);
+				ack+= "Discounted Price:  ₹ " + String.valueOf(price);
+				
+			}
+			session.setAttribute("couponMsg", ack);
+			return "transaction";
+		}
+		else {
+			return "login";
+		}
+	}//couponApplied
 	
 
 }
