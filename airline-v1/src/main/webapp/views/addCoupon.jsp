@@ -30,7 +30,7 @@
         <input type="text" name="t1"  class="email" placeholder ="Coupon name" required/>
         <input type="number" name="t2"  class="email" placeholder ="Discount percentage" required/>
          <input type="number" name="t3"  class="email" placeholder ="Active" required/>
-         <input type = "submit" value="Add Flight" id="btn2"/>
+         <input type = "submit" value="Add oupon" id="btn2"/>
         
         
        

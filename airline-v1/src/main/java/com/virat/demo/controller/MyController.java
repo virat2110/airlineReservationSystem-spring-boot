@@ -96,6 +96,7 @@ public class MyController {
 		UserAdmin.admin =-1;
 		UserAdmin.isAdmin = -1;
 		UserAdmin.user =-1;
+		UserAdmin.pnr =-1;
 		HttpSession session = request.getSession();
 		session.invalidate();
 		return "logout";
@@ -272,7 +273,9 @@ public class MyController {
 			b.setPrice(price);
 			b.setStatus("Booked");
 			b.setUsername(user);
-			String ack = bs.bookTicket(b);
+			bs.bookTicket(b);
+			String ack = "Ticket booked with pnr: " + String.valueOf(UserAdmin.pnr);
+			session.setAttribute("msga", ack);
 			return "redirect:/searchflight";
 		}
 		else {

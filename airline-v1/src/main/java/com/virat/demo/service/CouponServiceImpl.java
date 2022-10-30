@@ -42,7 +42,7 @@ public class CouponServiceImpl implements CouponService {
 
 	@Override
 	public int disPrice(int price, int per, char c) {
-		int min =0;
+		int min =10;
 		int max = per;
 		int p = 0;
 		if(c=='F') {

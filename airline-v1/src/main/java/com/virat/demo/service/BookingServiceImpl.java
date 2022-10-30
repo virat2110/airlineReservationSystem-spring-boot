@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.virat.demo.model.Booking;
 import com.virat.demo.repository.BookingRepository;
+import com.virat.demo.validation.UserAdmin;
 
 @Service
 public class BookingServiceImpl implements BookingService{
@@ -25,6 +26,7 @@ public class BookingServiceImpl implements BookingService{
 				break;
 			}
 		}
+		UserAdmin.pnr = pnr;
 		b.setPnr(pnr);
 		br.save(b);
 		return "Ticket booked";
