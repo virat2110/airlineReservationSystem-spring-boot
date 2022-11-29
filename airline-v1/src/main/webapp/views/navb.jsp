@@ -23,8 +23,7 @@
             <a href="#">AVA ARS</a>
            </div>
                 <ul>
-                    <li><a class="text1" href="https://github.com/virat2110" target="_blank" rel="noopener noreferrer">Git hub</a></li>
-                    <li><a class="text1" href="#">Profile</a></li>
+                    <li><a class="text1" href="#">Transaction</a></li>
                     <li><a class="text1" href="#">Profile</a></li>
                      <li>
                      

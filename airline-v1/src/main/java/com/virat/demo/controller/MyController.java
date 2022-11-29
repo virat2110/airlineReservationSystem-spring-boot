@@ -150,6 +150,7 @@ public class MyController {
 	
 	@RequestMapping(path="LoginData",method = RequestMethod.POST)
     public String loginUser(ModelMap model,  HttpServletRequest request) {
+		HttpSession session = request.getSession();
 		String username = request.getParameter("t1");
 		String pass = request.getParameter("t2");
 		int key = Integer.parseInt(request.getParameter("t3"));
@@ -158,7 +159,6 @@ public class MyController {
 		
 		String ack = us.verifyLogin(username, password, key);
 		model.put("errorLogin", ack);
-		HttpSession session = request.getSession();
 		if(UserAdmin.admin==1) {
 			
 			session.setAttribute("aUser", username);
@@ -267,7 +267,13 @@ public class MyController {
 			
 			String user = (String)session.getAttribute("uUser");
 			Flight f = (Flight) session.getAttribute("flightObj");
-			int price = (int) session.getAttribute("disPrice");
+			int price =0;
+			if( session.getAttribute("disPrice")==null) {
+				price = f.getPrice();
+			}
+			else {
+				price = (int) session.getAttribute("disPrice");
+			}
 			Booking b = new Booking();
 			b.setFlightid(f.getFlightId());
 			b.setPrice(price);
@@ -339,6 +345,57 @@ public class MyController {
 			return "login";
 		}
 	}//couponApplied
+	
+	@RequestMapping(path="flightList", method=RequestMethod.GET)
+	public String allFlight(HttpServletRequest request) {
+	if(UserAdmin.isAdmin ==1) {
+			List<Flight> l = fs.allFlight();
+			HttpSession session = request.getSession();
+			session.setAttribute("allFlight", l);
+			return "flightData";
+		}
+		else {
+			return "errorAdmin";
+		}
+		
+	}//flghtList for admin
+	
+	@RequestMapping(path="flightList/{id}", method = RequestMethod.GET)
+	public String editFlightById(HttpServletRequest request, @PathVariable int id) {
+		Flight f = fs.flightById(id);
+		HttpSession session = request.getSession();
+		session.setAttribute("flightEdit", f);
+		return "editFlight";
+	}
+	
+	@RequestMapping(path="editFlightData",method = RequestMethod.POST)
+	public String editFlight(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Flight f = (Flight) session.getAttribute("flightEdit");
+		if(request.getParameter("t3") != "") {
+			f.setDeparture(request.getParameter("t3"));
+		}
+		
+		if(request.getParameter("t4") != "") {
+			f.setArrival(request.getParameter("t4"));
+		}
+		
+		if(request.getParameter("t5") != "") {
+			f.setPrice(Integer.parseInt(request.getParameter("t5")));
+		}
+		if(request.getParameter("t6") != "") {
+			f.setStatus(request.getParameter("t6"));
+		}
+		if(request.getParameter("t7") != "") {
+			f.setDelay(request.getParameter("t7"));
+		}
+		String ack = fs.Update(f);
+		session.setAttribute("msgEFD", ack);
+		
+		
+		return "editFlight";
+	}
+	
 	
 
 }

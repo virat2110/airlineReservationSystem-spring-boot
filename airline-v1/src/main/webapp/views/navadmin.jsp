@@ -31,14 +31,14 @@ if(UserAdmin.admin !=1) {
              <div class="header">
             
             <div class="title">
-            <a href="#">AVA-ARS ADMIN PAGE</a>
+            <a href="/admin">AVA-ARS ADMIN PAGE</a>
            </div>
                 <ul>
                      <li><a href="addFlight">Add Flight</a></li>
-                      <li><a href="#" >Flight Data</a></li>
+                      <li><a href="/flightList" >Flight Data</a></li>
                       <li><a href="/coupon" >Add Coupon</a></li>
                      
-                    <li><a href="logout" >${ aUser}</a></li>
+                    <li><a href="/logout" >${ aUser}</a></li>
                    
                     
                     

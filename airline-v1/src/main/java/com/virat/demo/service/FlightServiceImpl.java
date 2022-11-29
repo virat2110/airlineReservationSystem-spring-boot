@@ -43,7 +43,7 @@ public class FlightServiceImpl implements FlightService{
 		List<Flight> l = fr.findAll();
 		List<Flight> list = new ArrayList<Flight>();
 		for(Flight f : l) {
-			if(f.getSource().equals(source)  &&  f.getDest().equals(dest)) {
+			if(f.getSource().equals(source)  &&  f.getDest().equals(dest) && f.getStatus().equalsIgnoreCase("running")) {
 				list.add(f);
 			}
 		}
@@ -60,6 +60,18 @@ public class FlightServiceImpl implements FlightService{
 		else {
 			return null;
 		}
+	}
+
+	@Override
+	public List<Flight> allFlight() {
+		List<Flight> flight = fr.findAll();
+		return flight;
+	}
+
+	@Override
+	public String Update(Flight f) {
+		fr.save(f);
+		return "Updated";
 	}
 
 }
