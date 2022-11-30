@@ -22,6 +22,7 @@
     <%
     List<String> ls = (List<String>) request.getAttribute("ls");
     List<String> ld = (List<String>) request.getAttribute("ld");
+    List<String> latest = (List<String>) request.getAttribute("latest");
     
     %>
     
@@ -34,9 +35,11 @@
 
 	<%@include file="navb.jsp" %>
 	<div class="cont">
+	<div class="left-cont">
+	
+	<div class="box">
 
     <form action="searchFlight" method="post">
-        <div class="box">
         <h3>Search</h3>
        
          <h5 style="text-align: center; color:red;margin-top:10px;margin-bottom:10px;">${msga}</h5>
@@ -59,15 +62,28 @@
 		</select>
        <input type = "submit" value="Search" id="btn2"/>
        
-        </div>
-          
-        </form>
+       </form>
+       
         
+  		</div>
+  		<div class="box-1">
+        	<div style="display: flex">
+        		<h3><%=latest.get(0) %></h3>
+        		<h3>---------></h3>
+        		<h3><%=latest.get(1) %></h3>
+        	</div>
+        	 <a id="btn3" href="/searchLast/<%=latest.get(0) %>/<%=latest.get(1) %>">Search</a> 
+        </div>
+	
+	
+	</div>
+        
+          
         
         <div class="image">
                 <img src="/views/2.png" alt="no image" height = "300"/>
             </div>
-            </div>
+     </div>
 </body>
 
 <style>
@@ -80,6 +96,7 @@ background-size: cover;
   width:100%; 
   text-align:center;
   margin: 0px 0px 20px 0px;
+  font-family: 'Fredoka', sans-serif;
 }
 select {
 
@@ -122,7 +139,13 @@ select.classic {
 }
 
 
-
+.left-cont{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+	height: 80vh;
+}
 
 .cont{
 display: flex;
@@ -144,14 +167,29 @@ h1{
   font-size:1.5em;
   color:#525252;
 }
+
 .box{
   background:white;
   width:350px;
   border-radius:6px;
-  margin-top: 150px;
   margin-left: 50px;
-  padding:10px 0px 70px 0px;
-  border: #3A5743 4px solid; 
+  padding:10px 0px 0px 0px;
+  border: #3A5743 1px solid; 
+}
+
+.box-1{
+  background:white;
+  width:400px;
+  border-radius:6px;
+  margin-left: 50px;
+  padding:0px 0px 0px 0px;
+  border: #3A5743 1px solid; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.box-1 h1 {
 }
 
 #btn2{
@@ -169,6 +207,25 @@ h1{
   font-size:0.8em;
 }
 #btn2:hover{ 
+background:blue; 
+cursor:pointer;
+}
+
+
+#btn3{
+  float:left;
+  background:#3498db;
+  width:125px;  padding-top:5px;
+  padding-bottom:5px;
+  color:white;
+  border-radius:4px;
+  border: #2980b9 1px solid;  
+  margin-top:10px;
+  margin-bottom:10px;
+  font-weight:800;
+  font-size:0.8em;
+}
+#btn3:hover{ 
 background:blue; 
 cursor:pointer;
 }

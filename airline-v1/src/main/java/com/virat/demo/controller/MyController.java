@@ -1,4 +1,6 @@
 package com.virat.demo.controller;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 
@@ -16,6 +18,7 @@ import com.virat.demo.model.Booking;
 import com.virat.demo.model.Coupon;
 import com.virat.demo.model.Flight;
 import com.virat.demo.model.User;
+import com.virat.demo.repository.UserRepository;
 import com.virat.demo.service.BookingService;
 import com.virat.demo.service.CouponService;
 import com.virat.demo.service.FlightService;
@@ -39,6 +42,9 @@ public class MyController {
 	
 	@Autowired
 	public CouponService cs;
+	
+	@Autowired
+	public UserRepository ur;
 	
 	@RequestMapping("/")
 	public String index() {
@@ -76,19 +82,7 @@ public class MyController {
 	}
 	
 	
-	@RequestMapping("/searchflight")
-	public String searchFlight(HttpServletRequest request) {
-		if(UserAdmin.user==1) {
-			List<String> ls = sds.getSource();
-			List<String> ld = sds.getDest();
-			request.setAttribute("ls", ls);
-			request.setAttribute("ld", ld);
-			return "searchFlightLogged";
-		}
-		else {
-			return "login";
-		}
-	}
+	
 	
 	
 	@RequestMapping("/logout")
@@ -135,6 +129,9 @@ public class MyController {
 			u.setAge(age);
 			u.setEmail(email);
 			u.setMobile(mobile);
+			u.setLastSouce("Source");
+			u.setLastDest("Destination");
+			
 			UserRegValidation urv = new UserRegValidation();
 			u.setPassword(urv.encrypt(pass, key));
 			u.setGender(gender);
@@ -207,6 +204,24 @@ public class MyController {
 		}
 	}//addFlight
 	
+	@RequestMapping("/searchflight")
+	public String searchFlight(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(UserAdmin.user==1) {
+			List<String> ls = sds.getSource();
+			List<String> ld = sds.getDest();
+			String username = (String) session.getAttribute("uUser");
+			List<String> latest = us.latestSearch(username);
+			request.setAttribute("latest", latest);
+			request.setAttribute("ls", ls);
+			request.setAttribute("ld", ld);
+			return "searchFlightLogged";
+		}
+		else {
+			return "login";
+		}
+	}
+	
 	@RequestMapping(path="searchFlight",method = RequestMethod.POST)
     public String searchFlight(ModelMap model,  HttpServletRequest request)  {
 		if(UserAdmin.user ==1) {
@@ -220,6 +235,11 @@ public class MyController {
 				return "redirect:/searchflight";
 			}
 			else {
+				String un = (String) session.getAttribute("uUser");
+				User u = ur.getById(un);
+				u.setLastSouce(source);
+				u.setLastDest(dest);
+				 us.updateSD(u);
 				session.setAttribute("source", source);
 				session.setAttribute("dest", dest);
 				request.setAttribute("flightList", list);
@@ -231,6 +251,23 @@ public class MyController {
 			return "login";
 		}
 	}//searchFlight
+	
+	@RequestMapping(path = "/searchLast/{source}/{dest}", method = RequestMethod.GET)
+	public String viewFlight(HttpServletRequest request, @PathVariable String source, @PathVariable String dest) {
+		
+		HttpSession session =request.getSession();
+		List<Flight> list = fs.flightList(source, dest);
+		if(list.size() ==0) {
+			
+			
+			return "redirect:/searchflight";
+		}
+		else {
+			request.setAttribute("flightList", list);
+			return "flightListUser";
+		}
+		
+	}
 	
 	@RequestMapping(path="flight/{id}",method = RequestMethod.GET)
 	public String flightTxn(HttpServletRequest request, @PathVariable int id) {
@@ -266,10 +303,14 @@ public class MyController {
 			HttpSession session = request.getSession();
 			
 			String user = (String)session.getAttribute("uUser");
+			if((Flight) session.getAttribute("flightObj") == null) {
+				return "redirect:/searchflight";
+			}
 			Flight f = (Flight) session.getAttribute("flightObj");
 			int price =0;
 			if( session.getAttribute("disPrice")==null) {
 				price = f.getPrice();
+				session.setAttribute("disPrice", price);
 			}
 			else {
 				price = (int) session.getAttribute("disPrice");
@@ -279,15 +320,21 @@ public class MyController {
 			b.setPrice(price);
 			b.setStatus("Booked");
 			b.setUsername(user);
+			Date d = new Date();
+			Timestamp timestamp2 = new Timestamp(d.getTime());
+			b.setTimestamp(timestamp2);
+			int pnr = bs.pnrGenerate();
+			b.setPnr(pnr);
+			session.setAttribute("pnr", pnr);
 			bs.bookTicket(b);
-			String ack = "Ticket booked with pnr: " + String.valueOf(UserAdmin.pnr);
-			session.setAttribute("msga", ack);
-			return "redirect:/searchflight";
+			
+			return "confirmation";
 		}
 		else {
 			return "/login";
 		}
 	}// Ticket booking confirmation
+	
 	
 	@RequestMapping("/coupon")
 	public String coupon() {
@@ -317,12 +364,11 @@ public class MyController {
 	
 	@RequestMapping(path="ApplyCoupon", method = RequestMethod.GET)
 	public String applyCoupon(HttpServletRequest request) {
+		HttpSession session = request.getSession();
 		if(UserAdmin.user ==1) {
 			String name = request.getParameter("t1");
-			System.out.println(name);
-			HttpSession session = request.getSession();
 			int per = cs.discount(name);
-			System.out.println(per);
+			
 			String ack = "";
 			if(per ==0) {
 				ack+= "Not a valid coupon";
@@ -331,14 +377,19 @@ public class MyController {
 				ack+="Coupon expired";
 			}
 			else {
+				if(session.getAttribute("disPrice") ==null) {
 				Flight f = (Flight) session.getAttribute("flightObj");
 				int price = cs.disPrice(f.getPrice(), per, name.charAt(0));
-				System.out.println(price);
+				
 				session.setAttribute("disPrice", price);
 				ack+= "Discounted Price:  ₹ " + String.valueOf(price);
+				session.setAttribute("couponMsg", ack);
+				}
 				
 			}
-			session.setAttribute("couponMsg", ack);
+			if(session.getAttribute("couponMsg")=="") {
+				session.setAttribute("couponMsg", ack);
+			}
 			return "transaction";
 		}
 		else {
@@ -394,6 +445,20 @@ public class MyController {
 		
 		
 		return "editFlight";
+	}//Edited flight data
+	
+	@RequestMapping(path="/delayedFlight",method = RequestMethod.GET)
+	public String delayedFlight(HttpServletRequest request) {
+		List<Flight> l = fs.delayedFlight();
+		request.setAttribute("delayflight", l);
+		return "delayFlight";
+	}
+	
+	//******Working on user profile*******
+	
+	@RequestMapping("/profile")
+	public String viewProfile(HttpServletRequest request) {
+		return "profile";
 	}
 	
 	

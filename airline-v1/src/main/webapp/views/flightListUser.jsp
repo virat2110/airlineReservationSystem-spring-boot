@@ -29,7 +29,7 @@ List<Flight> l = (List<Flight>) request.getAttribute("flightList");
 
 <div class="container">
 <div class="list">
-		<div style="color: black; font-weight: bolder; font-size: larger; margin-left:40%;"> ✈️    ${source }       ➡️     ${dest}</div>
+		<div style="color: black; font-weight: bolder; font-size: larger; margin-left:40%;"> ✈️   <h3>   </h3> ${source }<h3>   </h3>       ➡️    <h3>   </h3> ${dest}</div>
 		</div>
 
 
@@ -40,7 +40,7 @@ List<Flight> l = (List<Flight>) request.getAttribute("flightList");
 		<div class="list-text">⬆️<%=f.getDeparture() %></div>
 		<div class="list-text">⬇️<%=f.getArrival() %></div>
 		<div class="list-text">₹<%=f.getPrice() %></div>
-		<div class="list-text"><a class=button-22 href="flight/<%=f.getFlightId() %>">BOOK</a></div>
+		<div class="list-text"><a class=button-22 href="/flight/<%=f.getFlightId() %>">BOOK</a></div>
 	</div>
 	 <% } %>
 </div>

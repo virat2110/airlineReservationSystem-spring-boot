@@ -58,8 +58,11 @@
        <br/>
         <form action="/ApplyCoupon" method="get">
          <h5 style="text-align: center; color:green;margin-top:0px;margin-bottom:10px; font-size: 20px;">${couponMsg }</h5>
+         <%if(session.getAttribute("disPrice") == null) { %>
         <input type="text" name="t1"  class="email" placeholder ="Have Coupon!!"/> <br/>
-         <input type = "submit" value="Apply" id="btn2"/>
+        <input type = "submit" value="Apply" id="btn2"/>
+        <%} %>
+         
         
         </form>
        <br/>
@@ -80,10 +83,7 @@
             </div>
             </div>
             </div>
-            <%
-            session.setAttribute("couponMsg", " ");
-            %>
-            
+           
 </body>
 
 <style>

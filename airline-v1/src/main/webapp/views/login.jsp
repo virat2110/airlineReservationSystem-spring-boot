@@ -56,6 +56,7 @@ background-size: cover;
   width:100%; 
   text-align:center;
   margin: 0px 0px 20px 0px; 
+  font-family: 'Fredoka', sans-serif;
 }
 .cont{
 display: flex;
@@ -68,6 +69,11 @@ margin-left:250px;
     height: 100px;
    
 }
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+  opacity: 1; /* Firefox */
+}
+
 p{
   font-size:12px;
   text-decoration: none;

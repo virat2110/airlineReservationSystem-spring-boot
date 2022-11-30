@@ -69,6 +69,7 @@ background-size: cover;
   width:100%; 
   text-align:center;
   margin: 0px 0px 20px 0px;
+  font-family: 'Fredoka', sans-serif;
   
 }
 .option {
@@ -88,6 +89,10 @@ margin-left: 40px;
 
 .option label {
 padding-right: 20px;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+  opacity: 1; /* Firefox */
 }
 
 .option select {

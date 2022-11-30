@@ -1,9 +1,14 @@
 package com.virat.demo.model;
 
+
+import java.sql.Timestamp;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "booking")
@@ -12,6 +17,9 @@ public class Booking {
 	@Id
 	@Column(name="pnr")
 	private int pnr;
+	@Column(name="timestamp")
+	public Timestamp timestamp;
+	
 	@Column(name="username")
 	private String username;
 	@Column(name="flightid")
@@ -20,6 +28,7 @@ public class Booking {
 	private int price;
 	@Column(name="status")
 	private String status;
+	
 	public int getPnr() {
 		return pnr;
 	}
@@ -49,6 +58,12 @@ public class Booking {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
 	}
 	
 	

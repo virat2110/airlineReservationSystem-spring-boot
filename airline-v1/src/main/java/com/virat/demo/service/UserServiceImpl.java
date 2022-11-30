@@ -1,4 +1,5 @@
 package com.virat.demo.service;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -88,5 +89,23 @@ public class UserServiceImpl implements UserService{
 		}
 		
 	}
+
+	@Override
+	public String updateSD(User u) {
+		ur.save(u);
+		return "Updated";
+		
+	}
+
+	@Override
+	public List<String> latestSearch(String username) {
+		User u = ur.getById(username);
+		List<String> l = new ArrayList<>();
+		l.add(u.getLastSouce());
+		l.add(u.getLastDest());
+		return l;
+	}
+
+
 
 }

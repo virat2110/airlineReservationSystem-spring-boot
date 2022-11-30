@@ -26,6 +26,10 @@ public class User {
 	private String address;
 	@Column(name = "password")
 	private String password;
+	@Column(name = "lastSource")
+	public String lastSouce;
+	@Column(name = "lastDest")
+	public String lastDest;
 	public String getUsername() {
 		return username;
 	}
@@ -74,5 +78,19 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getLastSouce() {
+		return lastSouce;
+	}
+	public void setLastSouce(String lastSouce) {
+		this.lastSouce = lastSouce;
+	}
+	public String getLastDest() {
+		return lastDest;
+	}
+	public void setLastDest(String lastDest) {
+		this.lastDest = lastDest;
+	}
+	
+	
 
 }

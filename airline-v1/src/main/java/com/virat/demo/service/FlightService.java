@@ -11,5 +11,6 @@ public interface FlightService {
 	public Flight flightById(int id);
 	public List<Flight> allFlight();
 	public String Update(Flight f);
+	public List<Flight> delayedFlight();
 
 }

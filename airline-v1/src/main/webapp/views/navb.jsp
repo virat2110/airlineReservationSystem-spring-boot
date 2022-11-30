@@ -23,7 +23,7 @@
             <a href="#">AVA ARS</a>
            </div>
                 <ul>
-                    <li><a class="text1" href="#">Transaction</a></li>
+                    <li><a class="text1" href="/searchflight">Search flight</a></li>
                     <li><a class="text1" href="#">Profile</a></li>
                      <li>
                      

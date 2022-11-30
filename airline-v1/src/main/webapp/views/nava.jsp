@@ -24,7 +24,7 @@
            </div>
                 <ul>
                      <li><a href="https://github.com/virat2110" target="_blank" rel="noopener noreferrer">Git hub</a></li>
-                      <li><a href="https://www.linkedin.com/in/virat-anand-842498169" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                      <li><a href="/delayedFlight">Flight Status</a></li>
                     <li><a href="login" >Login</a></li>
                     <li><a href="register">Sign up</a></li>
                     

@@ -15,6 +15,13 @@ public class BookingServiceImpl implements BookingService{
 
 	@Override
 	public String bookTicket(Booking b) {
+		br.save(b);
+		return "Ticket Booked";
+		
+		
+	}
+	
+	public int pnrGenerate() {
 		boolean repeat = true;
 		int pnr = generate();
 		while(repeat) {
@@ -26,10 +33,9 @@ public class BookingServiceImpl implements BookingService{
 				break;
 			}
 		}
-		UserAdmin.pnr = pnr;
-		b.setPnr(pnr);
-		br.save(b);
-		return "Ticket booked";
+		
+		return pnr;
+		
 	}
 	public static int generate() {
 		int min = 1000;

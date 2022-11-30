@@ -74,4 +74,11 @@ public class FlightServiceImpl implements FlightService{
 		return "Updated";
 	}
 
+	@Override
+	public List<Flight> delayedFlight() {
+		List<Flight> l = fr.findAll();
+		
+		return l;
+	}
+
 }
