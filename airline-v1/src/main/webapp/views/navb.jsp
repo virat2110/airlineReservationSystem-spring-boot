@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 
-	<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/21e0291c53.js" crossorigin="anonymous"></script>
 
 
 
@@ -23,7 +23,7 @@
             <a href="#">AVA ARS</a>
            </div>
                 <ul>
-                    <li><a class="text1" href="/searchflight">Search flight</a></li>
+                    <li><a class="text1" href="/searchflight">Search flight  <i class="fa-solid fa-magnifying-glass"></i></a></li>
                     <li><a class="text1" href="#">Profile</a></li>
                      <li>
                      
@@ -41,21 +41,7 @@
                      
                      </li>
                    
-         <li>
-                     
-                     <div class="dropdown">
-                      <button class="dropbtn">${ack}
-                        <i class="fa fa-caret-down"></i>
-                      </button>
-                      <div class="dropdown-content">
-                        <a href="logout.jsp">Logout</a>
-                    
-                      </div>
-                    </div>
-                     
-                     </li>
-                     
-                   
+       
                 </ul>
             </div>
             </div>
@@ -65,16 +51,15 @@
 
 
 <style>
+body {
+font-family: 'Fredoka', sans-serif;
+}
 .navbar{
 	background: rgb(21,110,124);
 	background: linear-gradient(90deg, rgba(21,110,124,1) 13%, rgba(16,131,149,1) 51%, rgba(84,190,207,1) 89%);
 	height: 12vh;
 }
-.text1 {
 
-    font-size: 22px;
-    font-family: inherit;
-}
 .navbar ul{
     display: flex;
     margin-right: 40px;
@@ -107,7 +92,6 @@ color: black;
 .title {
     padding: 30px;
      font-size: 22px;
-    font-family: inherit;
 }
 .dropdown {
 	float: left;
@@ -126,7 +110,6 @@ color: black;
 	border: none;
 	outline: none;
 	background-color: inherit;
-	font-family: inherit;
 	margin: 0; 
     padding: 10px 0;
     color: rgba(255, 255, 255, 0.911);

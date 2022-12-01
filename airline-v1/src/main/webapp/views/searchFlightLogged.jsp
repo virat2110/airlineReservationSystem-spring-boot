@@ -10,6 +10,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka&family=Lato&display=swap" rel="stylesheet">
     <title>AVA-ARS | Search</title>
      <script type="text/javascript">
     window.history.forward();
@@ -40,7 +43,7 @@
 	<div class="box">
 
     <form action="searchFlight" method="post">
-        <h3>Search</h3>
+        <h3>Search your destination</h3>
        
          <h5 style="text-align: center; color:red;margin-top:10px;margin-bottom:10px;">${msga}</h5>
         <%
@@ -68,9 +71,9 @@
   		</div>
   		<div class="box-1">
         	<div style="display: flex">
-        		<h3><%=latest.get(0) %></h3>
-        		<h3>---------></h3>
-        		<h3><%=latest.get(1) %></h3>
+        		<h3>Recent: <%=latest.get(0) %> </h3>
+        		<h3><i class="fas fa-long-arrow-right"></i></h3>
+        		<h3>  <%=latest.get(1) %></h3>
         	</div>
         	 <a id="btn3" href="/searchLast/<%=latest.get(0) %>/<%=latest.get(1) %>">Search</a> 
         </div>
@@ -97,6 +100,7 @@ background-size: cover;
   text-align:center;
   margin: 0px 0px 20px 0px;
   font-family: 'Fredoka', sans-serif;
+  
 }
 select {
 
@@ -105,7 +109,6 @@ select {
   border: thin solid blue;
   border-radius: 4px;
   display: inline-block;
-  font: inherit;
   line-height: 1.5em;
   padding: 0.5em 3.5em 0.5em 1em;
 
@@ -160,7 +163,6 @@ margin-left:250px;
 }
 p{
   font-size:12px;
-  text-decoration: none;
   color:#ffffff;
 }
 h1{
@@ -174,7 +176,8 @@ h1{
   border-radius:6px;
   margin-left: 50px;
   padding:10px 0px 0px 0px;
-  border: #3A5743 1px solid; 
+  border: #3A5743 2px solid; 
+  box-shadow: 8px 8px #63d2ee;
 }
 
 .box-1{
@@ -183,18 +186,19 @@ h1{
   border-radius:6px;
   margin-left: 50px;
   padding:0px 0px 0px 0px;
-  border: #3A5743 1px solid; 
+  border: #3A5743 2px solid; 
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+   box-shadow: 8px 8px #63d2ee;
 }
 .box-1 h1 {
 }
 
 #btn2{
   float:left;
-  background:#3498db;
+  background: #3498db;
   width:125px;  padding-top:5px;
   padding-bottom:5px;
   color:white;
@@ -209,6 +213,7 @@ h1{
 #btn2:hover{ 
 background:blue; 
 cursor:pointer;
+color: black;
 }
 
 
@@ -228,6 +233,7 @@ cursor:pointer;
 #btn3:hover{ 
 background:blue; 
 cursor:pointer;
+color: black;
 }
 </style>
 </html>

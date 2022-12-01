@@ -1,5 +1,6 @@
 package com.virat.demo.controller;
 import java.sql.Timestamp;
+
 import java.util.Date;
 import java.util.List;
 
@@ -7,9 +8,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +22,7 @@ import com.virat.demo.model.Coupon;
 import com.virat.demo.model.Flight;
 import com.virat.demo.model.User;
 import com.virat.demo.repository.UserRepository;
+import com.virat.demo.service.AdminService;
 import com.virat.demo.service.BookingService;
 import com.virat.demo.service.CouponService;
 import com.virat.demo.service.FlightService;
@@ -46,9 +50,18 @@ public class MyController {
 	@Autowired
 	public UserRepository ur;
 	
+	@Autowired
+	public AdminService as;
+	
 	@RequestMapping("/")
-	public String index() {
+	public String index(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.invalidate();
 		return "index1";
+	}
+	@RequestMapping(path = "/error", method = RequestMethod.GET)
+	public String error() {
+		return "error";
 	}
 	
 	@RequestMapping("/login")
@@ -62,8 +75,14 @@ public class MyController {
 	}
 	
 	@RequestMapping("/admin")
-	public String admin() {
-		if(UserAdmin.admin == 1) {
+	public String admin(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("aUser") !=null) {
+			List<String> adminDash = as.adminFlightDetails();
+			request.setAttribute("adminDash", adminDash);
+			
+			
+			
 			return "adminDash";
 	}
 		else {

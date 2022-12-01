@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka&family=Lato&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <title>AVA-ARS | Flight</title>
 
@@ -29,7 +32,8 @@ List<Flight> l = (List<Flight>) request.getAttribute("flightList");
 
 <div class="container">
 <div class="list">
-		<div style="color: black; font-weight: bolder; font-size: larger; margin-left:40%;"> ✈️   <h3>   </h3> ${source }<h3>   </h3>       ➡️    <h3>   </h3> ${dest}</div>
+		<div style="color: black; font-weight: bolder; font-size: larger; margin-left:40%;"> 
+		✈️   ${source }     ➡️     ${dest}</div>
 		</div>
 
 
@@ -54,6 +58,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   width:100%; 
   text-align:center;
   margin: 0px 0px 20px 0px; 
+   font-family: 'Fredoka', sans-serif;
 }
 .container{
 	padding: 40px;
@@ -94,7 +99,6 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   display: flex;
   flex-direction: row;
   flex-shrink: 0;
-  font-family: "RM Neue",sans-serif;
   font-size: 100%;
   line-height: 1.15;
   margin: 0;

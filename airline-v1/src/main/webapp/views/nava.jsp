@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AVA ARS</title>
     
-
+<script src="https://kit.fontawesome.com/21e0291c53.js" crossorigin="anonymous"></script>
    
 </head>
 
@@ -23,10 +23,10 @@
             <a href="/">AVA ARS</a>
            </div>
                 <ul>
-                     <li><a href="https://github.com/virat2110" target="_blank" rel="noopener noreferrer">Git hub</a></li>
-                      <li><a href="/delayedFlight">Flight Status</a></li>
-                    <li><a href="login" >Login</a></li>
-                    <li><a href="register">Sign up</a></li>
+                     <li><a href="https://github.com/virat2110" target="_blank" rel="noopener noreferrer">About us</a></li>
+                      <li><a href="/delayedFlight">Flight Status  <i class="fa-sharp fa-solid fa-plane-circle-exclamation"></i></a></li>
+                    <li><a href="login" >Login  <i class="fa-solid fa-right-to-bracket"></i></a></li>
+                    <li><a href="register">Sign up  <i class="fa-solid fa-user-plus"></i></a></li>
                     
                     
                 </ul>
@@ -51,7 +51,7 @@ background: linear-gradient(90deg, rgba(21,110,124,1) 13%, rgba(16,131,149,1) 51
     color: black;
 }
 .navbar li {
-    padding: 10px 50px 10px 50px;
+    padding: 10px 40px 10px 10px;
     list-style: none;
     color: white;
 }

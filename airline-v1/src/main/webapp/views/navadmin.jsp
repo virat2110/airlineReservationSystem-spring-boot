@@ -38,7 +38,7 @@ if(UserAdmin.admin !=1) {
                       <li><a href="/flightList" >Flight Data</a></li>
                       <li><a href="/coupon" >Add Coupon</a></li>
                      
-                    <li><a href="/logout" >${ aUser}</a></li>
+      <li><i class="fa fa-sign-out" aria-hidden="true"></i><a href="/logout" >${ aUser}</a></li> 
                    
                     
                     

@@ -8,6 +8,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka&family=Lato&display=swap" rel="stylesheet">
     <title>AVA-ARS|Confirmation</title>
     
      <script type="text/javascript">
@@ -77,6 +80,7 @@ body{
   	width:100%; 
   	text-align:center;
   	margin: 0px 0px 20px 0px; 
+  	 font-family: 'Fredoka', sans-serif;
 }
 .container{
 	background-color: aliceblue;

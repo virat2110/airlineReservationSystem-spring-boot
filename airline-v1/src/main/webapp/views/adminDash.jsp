@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,9 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AVA-ARS|Admin</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka&family=Lato&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/21e0291c53.js" crossorigin="anonymous"></script>
+  
+  <%
+  List<String> l = (List<String>) request.getAttribute("adminDash");
+  %>
    
 </head>
 <body>
@@ -19,18 +22,18 @@
 
         <div class="box">
         <div class="column">
-        <h3>Total Flight:100	</h3>
-        <h3>Flight cancelled:100	</h3>
-        <h3>source covering:100	</h3>
-        <h3>Dest. covering: 100	</h3>
+        	<h3>Total Flight:  <%=l.get(0) %>	</h3>
+        	<h3>Ticket booked:  <%=l.get(1) %>		</h3>
+         	<h3>Total user:  <%=l.get(2) %>		</h3>
+         	<h3>Source covering: <%=l.get(3) %></h3>
         
         </div>
         
         <div class="column">
-        <h3>Total user:100		</h3>
-        <h3>Ticket cancelled:100	</h3>
-         <h3>Ticket booked:100		</h3>
-      <h3>Running late:100	</h3>
+       		<h3>Flight cancelled:  <%=l.get(4) %>	</h3>
+        	<h3>Ticket cancelled:  <%=l.get(5) %>	</h3>
+      		<h3>Running late:  <%=l.get(6) %>	</h3>
+       		<h3>Dest covering:  <%=l.get(7) %></h3>
         </div>
        
         
@@ -54,6 +57,7 @@ background-size: cover;
   width:100%; 
   text-align:center;
   margin: 0px 0px 20px 0px; 
+  font-family: 'Fredoka', sans-serif;
 }
 .cont{
 display: flex;
@@ -78,18 +82,20 @@ h1{
 .box{
   background:white;
   width:500px;
-  border-radius:6px;
+  border-radius:8px;
   margin-top: 170px;
   margin-left: 10px;
   padding:20px 10px 10px 10px;
-  border: #3A5743 4px solid; 
+  border: #3A5743 2px solid; 
   display : flex;
   float : left;
+  box-shadow: 10px 10px lightblue;
 }
 .column {
   flex: 50%;
   text-align: left;
 }
+
 .email{
   background:#ecf0f1;
   border: #ccc 1px solid;
@@ -148,5 +154,6 @@ cursor:pointer;
 background:green; 
 cursor:pointer;
 }
+
 </style>
 </html>

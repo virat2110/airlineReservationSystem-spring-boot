@@ -29,14 +29,14 @@ Flight f = (Flight) session.getAttribute("flightEdit");
 	<div class="cont">
     <form action="/editFlightData" method="post">
         <div class="box">
-        <h3>Edit FLight</h3>
+        <h3>Edit Flight</h3>
          <h5 style="text-align: center; color:red;margin-top:5px;margin-bottom:5px;">${msgEFD}</h5>
         <input type="number" name="t1"  class="email2"  placeholder = "<%=f.getFlightId()+"  "+f.getName() %>"  readonly/>
          <input type="text" name="t2"  class="email2" placeholder = "<%=f.getSource()+"  ->  " +f.getDest()%>"  readonly/>
          <input type="text" name="t3"  class="email" placeholder ="Departure - <%=f.getDeparture() %>" />
          <input type="text" name="t4"  class="email" placeholder ="Arrival  - <%=f.getArrival() %>" />
          <input type="number" name="t5"  class="email" placeholder ="Price  - <%=f.getPrice() %>"/>
-         <input type="text" name="t6"  class="email" placeholder ="Status  - running/deleted" />
+         <input type="text" name="t6"  class="email" placeholder ="Status  - running/cancelled" />
          <input type="text" name="t7"  class="email" placeholder ="Delay  - <%=f.getDelay()%>"/>
          <input type = "submit" value="Update" id="btn2"/>
         

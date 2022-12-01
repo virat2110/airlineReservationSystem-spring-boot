@@ -1,3 +1,8 @@
+<%@page import="com.virat.demo.service.UserServiceImpl"%>
+<%@page import="com.virat.demo.service.UserService"%>
+<%@page import="com.virat.demo.model.User"%>
+<%@page import="com.virat.demo.repository.UserRepository"%>
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,6 +15,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka&family=Lato&display=swap" rel="stylesheet">
+    
+    
+   
 </head>
 <body>
 
@@ -26,6 +34,7 @@
         <h3 style="text-align: center; color:black;margin-top:10px;margin-bottom:10px;">Register</h3>
          <h5 style="text-align: center; color:red;margin-top:10px;margin-bottom:10px;">${error}</h5>
         <input type="text" name="t1"  class="email" placeholder ="username" required/>
+       
         <input type="text" name="t2"  class="email" placeholder ="name" required/>
         <input type="text" name="t3"  class="email"  placeholder ="email" required/>
         
