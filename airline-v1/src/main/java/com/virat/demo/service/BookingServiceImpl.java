@@ -1,5 +1,8 @@
 package com.virat.demo.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +15,10 @@ public class BookingServiceImpl implements BookingService{
 	
 	@Autowired
 	public BookingRepository br;
+	
+	@Autowired
+	public FlightService  fs;
+	
 
 	@Override
 	public String bookTicket(Booking b) {
@@ -42,5 +49,46 @@ public class BookingServiceImpl implements BookingService{
 		int max = 9999;
 		return (int) ((Math.random() * (max - min)) + min);
 	}
+
+	@Override
+	public String cancelTicket(String username, int pnr) {
+		String ack="";
+		if(br.existsById(pnr)) {
+			Booking b = br.getById(pnr);
+			if(b.getUsername().equals(username)) {
+				b.setStatus("cancelled");
+				ack+="Ticket Cancelled";
+				br.save(b);
+			}
+			else {
+				ack+="Error in cancelling";
+			}
+		}
+		else {
+			ack+="Error in cancelling";
+		}
+		return ack;
+	}
+
+	@Override
+	public List<List<String>> showBookingById(String username) {
+		List<Booking> l = br.findAll();
+		List<List<String>> ll = new ArrayList<>();
+		for(Booking b : l) {
+			if(b.getUsername().equals(username)) {
+				List<String> list = new ArrayList<>();
+				List<String> f = fs.sourceDestById(b.getFlightid());
+				list.add(String.valueOf(b.getPnr()));
+				list.add(f.get(0));
+				list.add(f.get(1));
+				list.add(String.valueOf(b.getTimestamp()));
+				list.add(b.getStatus());
+				ll.add(list);
+				
+			}
+		}
+		return ll;
+	}
+	
 
 }

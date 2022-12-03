@@ -24,7 +24,7 @@
            </div>
                 <ul>
                      <li><a href="https://github.com/virat2110" target="_blank" rel="noopener noreferrer">About us</a></li>
-                      <li><a href="/delayedFlight">Flight Status  <i class="fa-sharp fa-solid fa-plane-circle-exclamation"></i></a></li>
+                      <li><a href="/AllFlight">Flight Status  <i class="fa-sharp fa-solid fa-plane-circle-exclamation"></i></a></li>
                     <li><a href="login" >Login  <i class="fa-solid fa-right-to-bracket"></i></a></li>
                     <li><a href="register">Sign up  <i class="fa-solid fa-user-plus"></i></a></li>
                     

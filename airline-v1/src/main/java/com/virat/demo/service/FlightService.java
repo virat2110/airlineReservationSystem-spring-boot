@@ -12,6 +12,7 @@ public interface FlightService {
 	public List<Flight> allFlight();
 	public String Update(Flight f);
 	public List<Flight> delayedFlight();
+	public List<String> sourceDestById(int id);
 	
 
 }

@@ -1,18 +1,18 @@
 package com.virat.demo.controller;
 import java.sql.Timestamp;
 
+
 import java.util.Date;
 import java.util.List;
 
-
-
+import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -113,7 +113,7 @@ public class MyController {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		return "logout";
-	}
+	} 
 	
 	@RequestMapping("/flightListUser")
 	public String flightList(HttpServletRequest request) {
@@ -466,11 +466,11 @@ public class MyController {
 		return "editFlight";
 	}//Edited flight data
 	
-	@RequestMapping(path="/delayedFlight",method = RequestMethod.GET)
+	@RequestMapping(path="/AllFlight",method = RequestMethod.GET)
 	public String delayedFlight(HttpServletRequest request) {
 		List<Flight> l = fs.delayedFlight();
-		request.setAttribute("delayflight", l);
-		return "delayFlight";
+		request.setAttribute("FlightList", l);
+		return "FlightList";
 	}
 	
 	//******Working on user profile*******
@@ -478,6 +478,36 @@ public class MyController {
 	@RequestMapping("/profile")
 	public String viewProfile(HttpServletRequest request) {
 		return "profile";
+	}
+	
+	@RequestMapping(path = "FlightsearchHome", method = RequestMethod.POST)
+	public String searchFlightHome(HttpServletRequest request) {
+		String source = request.getParameter("source");
+		String dest = request.getParameter("dest");
+		List<Flight> l = fs.flightList(source, dest);
+		request.setAttribute("FlightList", l);
+		return "FlightList";
+	}
+	
+	@RequestMapping("/viewBooking")
+	public String viewBooking(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String user = (String) session.getAttribute("uUser");
+		User u = us.userById(user);
+		List<List<String>> l = bs.showBookingById(user);
+		session.setAttribute("user", u);
+		session.setAttribute("viewBooking", l);
+		return "viewBooking";
+	}
+	
+	
+	@RequestMapping("/cancelTicket/{pnr}/{username}")
+	public String cancelTicket(HttpServletRequest request, @PathVariable String pnr, @PathVariable String username) {
+		int p = Integer.parseInt(pnr);
+		String ack = bs.cancelTicket(username, p);
+		request.setAttribute("ackCancel", ack);
+		return "redirect:/viewBooking";
+		
 	}
 	
 	

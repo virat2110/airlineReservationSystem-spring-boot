@@ -24,7 +24,7 @@
            </div>
                 <ul>
                     <li><a class="text1" href="/searchflight">Search flight  <i class="fa-solid fa-magnifying-glass"></i></a></li>
-                    <li><a class="text1" href="#">Profile</a></li>
+                    <li><a class="text1" href="/viewBooking">Bookings</a></li>
                      <li>
                      
                      <div class="dropdown">

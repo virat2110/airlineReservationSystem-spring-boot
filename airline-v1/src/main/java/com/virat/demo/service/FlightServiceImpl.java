@@ -44,7 +44,7 @@ public class FlightServiceImpl implements FlightService{
 		List<Flight> l = fr.findAll();
 		List<Flight> list = new ArrayList<Flight>();
 		for(Flight f : l) {
-			if(f.getSource().equals(source)  &&  f.getDest().equals(dest) && f.getStatus().equalsIgnoreCase("running")) {
+			if(f.getSource().equalsIgnoreCase(source)  &&  f.getDest().equalsIgnoreCase(dest) && f.getStatus().equalsIgnoreCase("running")) {
 				list.add(f);
 			}
 		}
@@ -81,6 +81,17 @@ public class FlightServiceImpl implements FlightService{
 		
 		return l;
 	}
+
+	@Override
+	public List<String> sourceDestById(int id) {
+		Flight f = fr.getById(id);
+		List<String> l = new ArrayList<>();
+		l.add(f.getSource());
+		l.add(f.getDest());
+		return l;
+		
+	}
+
 
 	
 

@@ -30,10 +30,12 @@
         <div class="description">
             <h1>B O O K &nbsp Y O U R &nbsp N E X T &nbsp F L I G H T &nbsp T I C K E T S</h1>
             <h3>Buy flight tickets across India. Fast, simple booking.</h3>
-            <div class="inputs">
-                <input class="left" placeholder="Where are you travelling from?" />
-                <input class="right" placeholder="Where are you going?" />
-                <a class="search"><i style="color: aliceblue;" class="fa-solid fa-magnifying-glass"></i></a>
+              <div class="inputs">
+            <form action="FlightsearchHome" method="post">
+                <input class="left" name= "source" type="text" placeholder="Where are you travelling from?" />
+                <input class="right" name="dest" type="text" placeholder="Where are you going?" />
+                <input class="search" type="submit">
+                </form>
             </div>
         </div>
 
@@ -185,7 +187,7 @@ background:  #5dcce6;
   background-color: #803e77;
   padding: 7.5px;
   border-radius: 20px;
-  width: 30px;
+  width: 20px;
   text-align: center;
   margin-left: -40px;
 }
