@@ -10,5 +10,7 @@ public interface UserService {
 	public User userById(String username);
 	public String updateSD(User u);
 	public List<String> latestSearch(String username);
+	public String updateUser(User u);
+	public boolean verifyemail(String email);
 
 }

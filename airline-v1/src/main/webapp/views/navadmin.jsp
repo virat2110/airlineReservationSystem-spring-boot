@@ -11,6 +11,7 @@
     <title>AVA ARS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka&family=Lato&display=swap" rel="stylesheet">
+      <script src="https://kit.fontawesome.com/21e0291c53.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
     window.history.forward();
     function noBack() {

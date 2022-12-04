@@ -22,7 +22,7 @@
             </div>
             <div class="buttons">
                 <a href="/login" class="bn3637">Login</a>
-                <a href="/delayedFlight" class="bn3637">Flight status</a>
+                <a href="/AllFlight" class="bn3637">Flight status</a>
                 <a  class="bn59"  href="/register"> Register</a>
             </div>
         </div>

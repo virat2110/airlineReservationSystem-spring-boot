@@ -32,9 +32,9 @@
                         <i class="fa fa-caret-down"></i>
                       </button>
                       <div class="dropdown-content">
-                        <a href="profile.jsp">View profile</a>
-                    <a href="insertUser.jsp">Update</a>
-                        <a href="updateUser.jsp">History</a>
+                        
+                    <a href="/updateUser/${ uUser }">Update</a>
+                        <a href="/viewBooking">Bookings</a>
                         <a href="/logout">Logout</a>
                       </div>
                     </div>

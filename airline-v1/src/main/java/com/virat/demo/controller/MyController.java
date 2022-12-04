@@ -472,13 +472,7 @@ public class MyController {
 		request.setAttribute("FlightList", l);
 		return "FlightList";
 	}
-	
-	//******Working on user profile*******
-	
-	@RequestMapping("/profile")
-	public String viewProfile(HttpServletRequest request) {
-		return "profile";
-	}
+
 	
 	@RequestMapping(path = "FlightsearchHome", method = RequestMethod.POST)
 	public String searchFlightHome(HttpServletRequest request) {
@@ -492,21 +486,102 @@ public class MyController {
 	@RequestMapping("/viewBooking")
 	public String viewBooking(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		String user = (String) session.getAttribute("uUser");
-		User u = us.userById(user);
-		List<List<String>> l = bs.showBookingById(user);
-		session.setAttribute("user", u);
-		session.setAttribute("viewBooking", l);
-		return "viewBooking";
+		if(session.getAttribute("uUser") !=null) {
+			String user = (String) session.getAttribute("uUser");
+			User u = us.userById(user);
+			List<List<String>> l = bs.showBookingById(user);
+			session.setAttribute("user", u);
+			session.setAttribute("viewBooking", l);
+			if(l.size()==0) {
+				return "redirect:/searchflight";
+			}
+			else {
+				return "viewBooking";
+			}
+		}
+		else {
+			return "redirect:/login";
+		}
 	}
 	
 	
 	@RequestMapping("/cancelTicket/{pnr}/{username}")
 	public String cancelTicket(HttpServletRequest request, @PathVariable String pnr, @PathVariable String username) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("uUser") !=null) {
 		int p = Integer.parseInt(pnr);
 		String ack = bs.cancelTicket(username, p);
 		request.setAttribute("ackCancel", ack);
 		return "redirect:/viewBooking";
+		}
+		else {
+			return "redirect:/login";
+		}
+		
+	}
+	
+	@RequestMapping("/viewTicket/{pnr}/{username}")
+	public String viewTicket(HttpServletRequest request, @PathVariable String pnr, @PathVariable String username) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("uUser") !=null) {
+		int p = Integer.parseInt(pnr);
+		List<String> ack = bs.viewTicket(username, p);
+		request.setAttribute("ackView", ack);
+		return "viewTicket";
+		}
+		else {
+			return "redirect:/login";
+		}
+		
+	}//view ticket
+	@RequestMapping("/updateUser/{username}")
+	public String viewUpdatePage(HttpServletRequest request, @PathVariable String username) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("uUser") != null) {
+			session.setAttribute("username", username);
+			 User u = us.userById(username);
+			 session.setAttribute("userUpdate", u);
+			return "updateUser";
+		}
+		else {
+			return "redirect:/login";
+		}
+	}
+	
+	@RequestMapping(path = "UpdateUser", method = RequestMethod.POST)
+	public String updateUser(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("uUser") != null) {
+		String username =(String) session.getAttribute("username");
+		User u = ur.getById(username);
+		if(request.getParameter("t3") != "") {
+			String email = request.getParameter("t3");
+			if(us.verifyemail(email)) {
+				session.setAttribute("msgUU", "email already exsits");
+				return "updateUser";
+			}
+			else {
+				u.setEmail(email);
+			}
+		}
+		if(request.getParameter("t4") != "") {
+			u.setName(request.getParameter("t4"));
+		}
+		if(request.getParameter("t5") != "") {
+			u.setAddress(request.getParameter("t5"));
+		}
+		if(request.getParameter("t6") != "") {
+			u.setMobile(Long.parseLong(request.getParameter("t6")));
+		}
+		String ack = us.updateUser(u);
+		session.setAttribute("msgUU", ack);
+		return "updateUser";
+		}
+		else {
+			return "redirect:/login";
+		}
+		
+		
 		
 	}
 	

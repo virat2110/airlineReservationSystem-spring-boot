@@ -106,6 +106,24 @@ public class UserServiceImpl implements UserService{
 		return l;
 	}
 
+	@Override
+	public String updateUser(User u) {
+			ur.save(u);
+			return "User updated";
+		
+	}
+
+	@Override
+	public boolean verifyemail(String email) {
+		List<User> u = ur.findAll();
+		for(User us : u) {
+			if(us.getEmail().equals(email))  {
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 
 }

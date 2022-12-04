@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.virat.demo.model.Booking;
+import com.virat.demo.model.Flight;
 import com.virat.demo.repository.BookingRepository;
 import com.virat.demo.validation.UserAdmin;
 
@@ -89,6 +90,27 @@ public class BookingServiceImpl implements BookingService{
 		}
 		return ll;
 	}
+
+	@Override
+	public List<String> viewTicket(String username, int pnr) {
+		List<String> l = new ArrayList<>();
+		Booking b = br.getById(pnr);
+		Flight f = fs.flightById(b.getFlightid());
+		l.add("Flight id:  "+String.valueOf(f.getFlightId()));
+		l.add("Flight name:  "+f.getName());
+		l.add("Booking price:  "+String.valueOf(b.getPrice()));
+		l.add("Dept time:  "+f.getDeparture()+" IST");
+		l.add("Arrival:  "+f.getArrival()+" IST");
+		l.add("Flight status:  "+f.getStatus());
+		l.add("Delay tiime:  "+f.getDelay()+" hrs:min");
+		l.add("Booking status:  "+b.getStatus());
+		
+		
+		
+		return l;
+	}
+
+	
 	
 
 }

@@ -13,7 +13,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/21e0291c53.js" crossorigin="anonymous"></script>
     <%
     List<List<String>> list = ( List<List<String>>) session.getAttribute("viewBooking");
     User u = (User) session.getAttribute("user");
@@ -34,7 +33,7 @@
                         <h3 class="decor">Date of booking:  <%=l.get(3) %></h3>   
                     </div>
                     <div class="list-buttons">
-                        <button class="button-7" role="button">VIEW</button>
+                        <a href="/viewTicket/<%=l.get(0) %>/<%=u.getUsername() %>" class="button-7" role="button">VIEW</a>
                         <%if(l.get(4).equals("Booked")) { %>
                         <a href="/cancelTicket/<%=l.get(0) %>/<%=u.getUsername() %>" class="button-8">CANCEL</a>
                         <%} %>
@@ -58,7 +57,7 @@
                     <h3>Mobile: <%=u.getMobile() %></h3>
                     <h3>Email: <%=u.getEmail() %></h3>
                     
-                    <button class="button-7" role="button">UPDATE</button>
+                    <a href="updateUser/<%=u.getUsername() %>" class="button-7" role="button">UPDATE</a>
                 </div>
             </div>
         </div>

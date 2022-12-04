@@ -10,5 +10,6 @@ public interface BookingService {
 	public int pnrGenerate();
 	public String cancelTicket(String username, int pnr);
 	public List<List<String>> showBookingById(String username);
+	public List<String> viewTicket(String username, int pnr);
 
 }
