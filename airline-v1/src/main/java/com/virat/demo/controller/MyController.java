@@ -91,8 +91,9 @@ public class MyController {
 	}
 	
 	@RequestMapping("/addFlight")
-	public String addFlight() {
-		if(UserAdmin.isAdmin == 1 && UserAdmin.admin ==1) {
+	public String addFlight(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("aUser") !=null) {
 		return "addFlight";
 		}
 		else {
@@ -106,18 +107,15 @@ public class MyController {
 	
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request) {
-		UserAdmin.admin =-1;
-		UserAdmin.isAdmin = -1;
-		UserAdmin.user =-1;
-		UserAdmin.pnr =-1;
 		HttpSession session = request.getSession();
 		session.invalidate();
-		return "logout";
+		return "redirect:/login";
 	} 
 	
 	@RequestMapping("/flightListUser")
 	public String flightList(HttpServletRequest request) {
-		if(UserAdmin.user==1) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("uUser") != null) {
 			return "flightListUser";
 		}
 		else {
@@ -175,14 +173,15 @@ public class MyController {
 		
 		String ack = us.verifyLogin(username, password, key);
 		model.put("errorLogin", ack);
-		if(UserAdmin.admin==1) {
-			
-			session.setAttribute("aUser", username);
-			return "redirect:/admin";
-		}
-		else if(UserAdmin.user==1) {
+		if(!ack.substring(0, 3).equalsIgnoreCase("AVA")) {
 			session.setAttribute("uUser", username);
 			return "redirect:/searchflight";
+			
+		}
+		if(ack.substring(0, 3).equalsIgnoreCase("AVA")) {
+			session.setAttribute("aUser", username);
+			return "redirect:/admin";
+			
 		}
 		else {
 			return "login";
@@ -193,7 +192,8 @@ public class MyController {
 	
 	@RequestMapping(path="AddFlight",method = RequestMethod.POST)
     public String addFlight(ModelMap model,  HttpServletRequest request)  {
-		if(UserAdmin.isAdmin == 1 && UserAdmin.admin ==1) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("aUser") !=null) {
 			int id = Integer.parseInt(request.getParameter("t1"));
 			String name = request.getParameter("t2");
 			String source = request.getParameter("t3");
@@ -226,7 +226,7 @@ public class MyController {
 	@RequestMapping("/searchflight")
 	public String searchFlight(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		if(UserAdmin.user==1) {
+		if(session.getAttribute("uUser") != null) {
 			List<String> ls = sds.getSource();
 			List<String> ld = sds.getDest();
 			String username = (String) session.getAttribute("uUser");
@@ -243,11 +243,11 @@ public class MyController {
 	
 	@RequestMapping(path="searchFlight",method = RequestMethod.POST)
     public String searchFlight(ModelMap model,  HttpServletRequest request)  {
-		if(UserAdmin.user ==1) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("uUser") != null) {
 			String source = request.getParameter("t1");
 			String dest = request.getParameter("t2");
 			List<Flight> list = fs.flightList(source, dest);
-			HttpSession session = request.getSession();
 			if(list.size() ==0) {
 				
 				session.setAttribute("msga", "No flight Found");
@@ -290,9 +290,9 @@ public class MyController {
 	
 	@RequestMapping(path="flight/{id}",method = RequestMethod.GET)
 	public String flightTxn(HttpServletRequest request, @PathVariable int id) {
-		if(UserAdmin.user ==1) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("uUser") != null) {
 			Flight f = fs.flightById(id);
-			HttpSession session= request.getSession();
 			if(f == null) {
 				return "redirect:/searchflight";
 			}
@@ -318,8 +318,9 @@ public class MyController {
 	
 	@RequestMapping("/bookTicket")
 	public String booking(HttpServletRequest request)  {
-		if(UserAdmin.user==1) {
-			HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
+		if(session.getAttribute("uUser") != null) {
+			
 			
 			String user = (String)session.getAttribute("uUser");
 			if((Flight) session.getAttribute("flightObj") == null) {
@@ -356,8 +357,9 @@ public class MyController {
 	
 	
 	@RequestMapping("/coupon")
-	public String coupon() {
-		if(UserAdmin.admin==1 && UserAdmin.isAdmin ==1) {
+	public String coupon(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("aUser") != null) {
 			return "addCoupon";
 		}
 		else {
@@ -384,7 +386,7 @@ public class MyController {
 	@RequestMapping(path="ApplyCoupon", method = RequestMethod.GET)
 	public String applyCoupon(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		if(UserAdmin.user ==1) {
+		if(session.getAttribute("uUser") != null) {
 			String name = request.getParameter("t1");
 			int per = cs.discount(name);
 			
@@ -418,9 +420,9 @@ public class MyController {
 	
 	@RequestMapping(path="flightList", method=RequestMethod.GET)
 	public String allFlight(HttpServletRequest request) {
-	if(UserAdmin.isAdmin ==1) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("aUser") != null) {
 			List<Flight> l = fs.allFlight();
-			HttpSession session = request.getSession();
 			session.setAttribute("allFlight", l);
 			return "flightData";
 		}

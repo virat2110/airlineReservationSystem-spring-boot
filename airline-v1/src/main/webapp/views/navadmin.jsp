@@ -19,12 +19,6 @@
     }
 </script>
 </head >
- <%
-if(UserAdmin.admin !=1) {
-	
-	response.sendRedirect(request.getContextPath() + "/login");
-}
-%>
 
 
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
@@ -35,7 +29,7 @@ if(UserAdmin.admin !=1) {
             <a href="/admin">AVA-ARS ADMIN PAGE</a>
            </div>
                 <ul>
-                     <li><a href="addFlight">Add Flight</a></li>
+                     <li><a href="/addFlight">Add Flight</a></li>
                       <li><a href="/flightList" >Flight Data</a></li>
                       <li><a href="/coupon" >Add Coupon</a></li>
                      

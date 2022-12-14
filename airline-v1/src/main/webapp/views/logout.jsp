@@ -12,16 +12,7 @@
     }
 </script>
 
-<%
-            response.setHeader("Pragma", "no-cache");
-			response.setHeader("Cache-control", "no-cache, no-store");
-            response.setHeader("Expires", "0");
-            response.setDateHeader("Expires", -1);
-            session.invalidate();
-          
-			
 
-%>
 
 </head>
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">

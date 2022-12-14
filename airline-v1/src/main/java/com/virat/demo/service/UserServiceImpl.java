@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService{
 				if(a.getPassword().equals(password)) {
 					UserAdmin.admin =1;
 					UserAdmin.isAdmin = a.getIsAdmin();
-					ack +="Hello admin";
+					ack +=username;
 				}
 				else {
 					ack +="Wrong username/password";
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService{
 				User u = ur.getById(username);
 				if(u.getPassword().equals(password)) {
 					UserAdmin.user =1;
-					ack +="User login Sucssessful";
+					ack +=username;
 				}
 				else {
 					ack +="Wrong username/password";
